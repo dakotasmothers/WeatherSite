@@ -8,6 +8,13 @@
         geocode(searchLocation);
     //Clear out the search bar
     $("#searchBar").val("");
+    });
+
+    $(document).on("click", "button#remove", function(){
+        //Get the parent element of the button
+        let parentDiv = $(this).parent();
+        let weatherCardContainer = parentDiv.parent();
+        weatherCardContainer.remove();
     })
 
 })();
@@ -19,18 +26,28 @@ function getWeatherInfo(latitude, longitude, city, state) {
 
     $.ajax("https://api.darksky.net/forecast/" + darkSkyKey + "/" + latitude + "," + longitude, { dataType: "jsonp"})
     .done(function(data) {
-        console.log(data);
+        //Get the HTML from the div with the ID template
+        let templateHTML = $("#template").html();
 
-        //See if you can get the following data from the JSON
-        //1. Get the current temperature
-        console.log(data.currently.temperature);
+        let currentTemp = data.currently.temperature;
+        let currentConditions = data.currently.summary;
+        let currentDayInfo = data.daily.data[0];
+        let highTemp = currentDayInfo.temperatureHigh; 
+        let lowTemp = currentDayInfo.temperatureLow;
+        let precipitation = currentDayInfo.precipProbability * 100;
 
-        //2. Get the probability of precipitation
-        console.log(data.currently.precipProbability);
-        
-        //3. Get the high and low temp for the current day(first element in the data array in the daily object)
-        console.log(daily.data.temperatureHigh);
-        console.log(daily.data.temperatureLow);
+        //Replacing the string @@city@@ with the city we pass into this function in the HTML
+        templateHTML = templateHTML.replace("@@city@@", city);
+        templateHTML = templateHTML.replace("@@state@@", state);
+        templateHTML = templateHTML.replace("@@currentTemp@@", Math.round(currentTemp));
+        templateHTML = templateHTML.replace("@@highTemp@@", Math.round(highTemp));
+        templateHTML = templateHTML.replace("@@lowTemp@@", Math.round(lowTemp));
+        templateHTML = templateHTML.replace("@@precipitation@@", (precipitation));
+        templateHTML = templateHTML.replace("@@currentConditions@@", currentConditions);
+        //Add the configured template HTML to our row in the card
+        $(".row").append(templateHTML);
+
+      
     })
     .fail(function(error) {
         console.log(error);
