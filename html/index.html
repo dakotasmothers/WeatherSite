@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather Vane</title>
-    <link href="../img/">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/main.css">
 </head>
@@ -20,10 +19,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                      <a class="nav-link" href="https://darksky.net/dev">Powered by Dark Sky<span class="sr-only">(current)</span></a>
+                      <a class="nav-link" href="https://darksky.net/dev" target="_blank">Powered by Dark Sky<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="https://developer.mapquest.com">MapQuest Geocoding</a>
+                      <a class="nav-link" href="https://developer.mapquest.com" target="_blank">MapQuest Geocoding</a>
                     </li>
                   </ul>
                   <form class="form-inline my-2 my-lg-0">
@@ -41,7 +40,7 @@
     
     <div id="template" style="display: none;">
       <div class="col-xs-12 col-lg-4">
-        <div class="weatherCard">
+        <div class="weatherCard" style="background-image: url('@@imageURL@@')">
           <button type="button" id="remove">X</button>
           <h1>@@city@@</h1>
           <h1>@@currentTemp@@&#8457</h1>
@@ -52,6 +51,16 @@
             <li class="list-group-item">Low: @@lowTemp@@&#8457</li>
             <li class="list-group-item">Precipitation: @@precipitation@@%</li>
           </ul>
+          <button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" data-target="#forecast">Hide/Show Weekly Forecast</button>
+          <div id="forecast" class="collapse">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Today || High: @@max0@@&#8457 <br /> Low: @@low0@@&#8457 <br /> Precip. Chance: @@precip0@@%</li>
+              <li class="list-group-item">@@date1@@ || High: @@max1@@&#8457 <br /> Low: @@low1@@&#8457 <br /> Precip. Chance: @@precip1@@%</li>
+              <li class="list-group-item">@@date2@@ || High: @@max2@@&#8457 <br /> Low: @@low2@@&#8457 <br /> Precip. Chance: @@precip2@@%</li>
+              <li class="list-group-item">@@date3@@ || High: @@max3@@&#8457 <br /> Low: @@low3@@&#8457 <br /> Precip. Chance: @@precip3@@%</li>
+              <li class="list-group-item">@@date4@@ || High: @@max4@@&#8457 <br /> Low: @@low4@@&#8457 <br /> Precip. Chance: @@precip4@@%</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
